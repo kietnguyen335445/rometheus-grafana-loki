@@ -3,7 +3,7 @@ This projects shows the steps taken to install and configure monitoring tools. I
 
 Prerequisites
 
-Create a K8s Cluster using minikube.
+Create a K8s Cluster using (minikube)[https://minikube.sigs.k8s.io/docs/start/?arch=%2Fmacos%2Fx86-64%2Fstable%2Fbinary+download]
 
 Install Helm.
 
