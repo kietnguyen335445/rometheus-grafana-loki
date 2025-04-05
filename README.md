@@ -9,33 +9,33 @@ Install Helm.
 
 Step 1: Installing Prometheus
 
-Create a namespace called Prometheus.
+  Create a namespace called Prometheus.
 
 ```bash
 kubectl create ns prometheus
 ```
 
-Add the Prometheus Helm chart repository.
+  Add the Prometheus Helm chart repository.
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 ```
 
-Update the local Helm chart repository cache.
+  Update the local Helm chart repository cache.
 ```bash
 helm repo update
 ```
 
-Install the Prometheus chart in the prometheus namespace.
+  Install the Prometheus chart in the prometheus namespace.
 ```bash
 helm install prometheus prometheus-community/prometheus -n prometheus
 ```
 
-Verify that Prometheus is running.
+  Verify that Prometheus is running.
 ```bash
 kubectl get pods -n prometheus
 ```
 
-Change the Service Type of the Prometheus-Server service from ClusterIP to NodePort.
+  Change the Service Type of the Prometheus-Server service from ClusterIP to NodePort.
 ```bash
 kubectl edit svc/prometheus-server -n prometheus
 ```
@@ -43,16 +43,16 @@ kubectl edit svc/prometheus-server -n prometheus
 
 Step 2: Access the Prometheus server from a Web Browser
 
-Run the following command to get the value of NodePort:
+  Run the following command to get the value of NodePort:
 
 ```bash
 kubectl get svc/prometheus-server -n prometheus
 ```
-Get the IP address of the minikube cluster.
+  Get the IP address of the minikube cluster.
 ```bash
 minikube ip
 ```
-Go to your web browser and paste the following url:
+  Go to your web browser and paste the following url:
 
 ```bash
 http://<minikube_ip>:<prometheus-server-nodeport>
@@ -62,71 +62,71 @@ http://<minikube_ip>:<prometheus-server-nodeport>
 
 Step 3: Installing Loki
 
-Create a namespace called loki.
+  Create a namespace called loki.
 ```bash
 kubectl create ns loki
 ```
 
-Add the Bitnami Helm chart repository.
+  Add the Bitnami Helm chart repository.
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
 ```
 
-Update the local Helm chart repository cache.
+  Update the local Helm chart repository cache.
 ```bash
 helm repo update
 ```
-Install Loki chart in the loki namespace.
+  Install Loki chart in the loki namespace.
 ```bash
 helm install loki bitnami/grafana-loki -n loki
 ```
-Change the Service Type of the loki-grafana-loki-gateway service from ClusterIP to NodePort.
+  Change the Service Type of the loki-grafana-loki-gateway service from ClusterIP to NodePort.
 ```bash
 kubectl edit svc/loki-grafana-loki-gateway -n loki
 ```
 ![pro6](https://github.com/user-attachments/assets/29c82c4f-450b-4198-b849-c3c313a8d16e)
 
-Run the following command to get the value of the NodePort:
+  Run the following command to get the value of the NodePort:
 ```bash
 kubectl get svc/loki-grafana-loki-gateway -n loki
 ```
 Step 4: Installing Grafana
-Create a namespace called grafana.
+  Create a namespace called grafana.
 ```bash
 kubectl create ns grafana
 ```
-Add the Grafana Helm chart repository.
+  Add the Grafana Helm chart repository.
 ```bash
 helm repo add grafana https://grafana.github.io/helm-charts
 ```
-Update the local Helm chart repository cache.
+  Update the local Helm chart repository cache.
 ```bash
 helm repo update
 ```
-Install the Grafana chart in the Grafana namespace.
+  Install the Grafana chart in the Grafana namespace.
 ```bash
 helm install grafana grafana/grafana -n grafana
 ```
-Copy and run this following command to get the default of the password:
+  Copy and run this following command to get the default of the password:
 ```bash
 kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-password}" | base 64 --decode ; echo
 ```
-Change the Service Type of the grafana service from ClusterIP to NodePort.
+  Change the Service Type of the grafana service from ClusterIP to NodePort.
 ```bash
 kubectl edit svc/grafana -n grafana
 ```
 ![pro7](https://github.com/user-attachments/assets/bd4ed079-1cac-4082-b4c6-b2d385599a31)
 
 Step 5: Access the Grafana server from a Web Browser
-Run the following command to get the value of the NodePort:
+  Run the following command to get the value of the NodePort:
 ```bash
 kubectl get svc -n grafana
 ```
-Get the IP address of the minikube cluster.
+  Get the IP address of the minikube cluster.
 ```bash
 minikube ip
 ```
-Go to your web browser and paste the following url:
+  Go to your web browser and paste the following url:
 ```bash
 http://<minikube_ip>:<grafana-nodeport>
 ```
@@ -134,36 +134,36 @@ http://<minikube_ip>:<grafana-nodeport>
 
 Step 6: Configuring Prometheus and Loki as Data Sources to Grafana
 
-On the Grafana webpage, click on the Open menu tab then click on the Connections dropdown and Add New Connections.
+  On the Grafana webpage, click on the Open menu tab then click on the Connections dropdown and Add New Connections.
 
-Search for the Prometheus Data Source and click on it.
+  Search for the Prometheus Data Source and click on it.
 ![pro8](https://github.com/user-attachments/assets/71c74ca3-6ab1-400a-a087-1b9fa6cd2a25)
 
-Click on Add new data source.
+  Click on Add new data source.
 
-Paste the http://<minikube_ip>:<prometheus-server-nodeport> into the Prometheus server URL box.
+  Paste the http://<minikube_ip>:<prometheus-server-nodeport> into the Prometheus server URL box.
 ![pro9](https://github.com/user-attachments/assets/0c28ff22-b0a8-4a49-9b2a-7384c3928d91)
 
-Then click Save & test.
+  Then click Save & test.
 
 Step 7: Visualizing The K8 Cluster on Grafana using Dashboards
 
-On Grafana Server homepage, click on Open menu --> Dasboard --> Create Dashboard --> Import dashboard
+  On Grafana Server homepage, click on Open menu --> Dasboard --> Create Dashboard --> Import dashboard
 
-Go to https://grafana.com/grafana/dashboards and search for K8s and click on it.
+  Go to https://grafana.com/grafana/dashboards and search for K8s and click on it.
 ![pro10](https://github.com/user-attachments/assets/63d5f149-8eeb-4721-a6c6-f5c9abf6609c)
 
-Click on Copy ID to clipboard
+  Click on Copy ID to clipboard
 ![pro11](https://github.com/user-attachments/assets/e44d81e0-2496-4458-852e-a0186a24f603)
 
-Go back to the Grafana server, paste the GUID and click on Load.
+  Go back to the Grafana server, paste the GUID and click on Load.
 ![pro12](https://github.com/user-attachments/assets/d615b773-25db-4ec1-8192-554426479cc4)
 
-Click on the Prometheus tab, select Prometheus as the Data source and click on Import.
+  Click on the Prometheus tab, select Prometheus as the Data source and click on Import.
 
 Step 8: Setting Up Alerts on Prometheus
 
-Create a prometheus.yaml file in your directory and add an alert rule.
+  Create a prometheus.yaml file in your directory and add an alert rule.
 ```bash
 serverFiles:
   alerting_rules.yml:
@@ -202,13 +202,13 @@ serverFiles:
           description: "Memory usage on instance {{ $labels.instance }} has exceeded 90% for more than 5 minutes."
   
 ```
-Upgrade the Prometheus Helm release with the prometheus.yaml configuration.
+  Upgrade the Prometheus Helm release with the prometheus.yaml configuration.
 ```bash
 helm upgrade prometheus prometheus-community/prometheus -f prometheus.yaml -n prometheus
 ```
 Note: After upgrade the prometheus helm, nodeport of the Prometheus-Server will change
 
-Go your web browser and access the Prometheus-Server with the new NodePort and click on Alert.
+  Go your web browser and access the Prometheus-Server with the new NodePort and click on Alert.
 ```bash
 http://<minikube_ip>:<new-prometheus-server-nodeport>
 ```
@@ -216,7 +216,7 @@ http://<minikube_ip>:<new-prometheus-server-nodeport>
 
 Step 9: Examining and Visualizing the etcd Pod Log Entries with Loki
 
-Access the Grafana server, click on Open menu --> Explore --> Select Pod and etcd-minikube as the label filters respectively then click on Run query.
+  Access the Grafana server, click on Open menu --> Explore --> Select Pod and etcd-minikube as the label filters respectively then click on Run query.
 ![pro15](https://github.com/user-attachments/assets/f93c1967-e80b-4e44-aada-35d4fa09f439)
 
 
