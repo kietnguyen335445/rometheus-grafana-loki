@@ -141,7 +141,7 @@ Step 6: Configuring Prometheus and Loki as Data Sources to Grafana
 
   Click on Add new data source.
 
-  Paste the http://<minikube_ip>:<prometheus-server-nodeport> into the Prometheus server URL box.
+  Paste the ```bash http://<minikube_ip>:<prometheus-server-nodeport>```into the Prometheus server URL box.
 ![pro9](https://github.com/user-attachments/assets/0c28ff22-b0a8-4a49-9b2a-7384c3928d91)
 
   Then click Save & test.
