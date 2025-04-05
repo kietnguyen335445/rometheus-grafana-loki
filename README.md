@@ -5,7 +5,7 @@ Prerequisites
 
 Create a K8s Cluster using [minikube](https://minikube.sigs.k8s.io/docs/start/?arch=%2Fmacos%2Fx86-64%2Fstable%2Fbinary+download)
 
-Install Helm.
+Install [Helm](https://helm.sh/docs/intro/install/).
 
 Step 1: Installing Prometheus
 
